@@ -55,13 +55,52 @@ function buyBigMachine(){
         updateScorePerSecond();
     }
 }
+// End Of Buy Button
 
 function updateScorePerSecond(){
     scrapspersecond = chineseScrap + middleScrap * 5 + bigScrapMachine * 15;
     document.getElementById("scrapspersecond").innerHTML = scrapspersecond;
 }
 
-// End Of Buy Button
+function loadGame(){// mettre chaque objet ou amélioration que l'on souhaite charger
+    var savedGame = JSON.parse(localStorage.getItem("gameSave"));
+    if (typeof savedGame.scraps !== "undefined") scraps = savedGame.scraps;
+    if (typeof savedGame.clickingPower !== "undefined") clickingPower = savedGame.clickingPower;
+    if (typeof savedGame.chineseScrapCost !== "undefined") chineseScrapCost = savedGame.chineseScrapCost;
+    if (typeof savedGame.middleScrapCost !== "undefined") middleScrapCost = savedGame.middleScrapCost;
+    if (typeof savedGame.bigScrapMachineCost !== "undefined") bigScrapMachineCost = savedGame.bigScrapMachineCost;
+    if (typeof savedGame.chineseScrap !== "undefined") chineseScrap = savedGame.chineseScrap;
+    if (typeof savedGame.middleScrap !== "undefined") middleScrap = savedGame.middleScrap;
+    if (typeof savedGame.bigScrapMachine !== "undefined") bigScrapMachine = savedGame.bigScrapMachine;
+}
+       
+function saveGame(){  // mettre chaque objet ou amélioration que l'on souhaite sauvegarder
+    var gameSave = {
+        scraps: scraps,
+        clickingPower: clickingPower,
+        chineseScrapCost: chineseScrapCost,
+        middleScrapCost: middleScrapCost,
+        bigScrapMachineCost: bigScrapMachineCost,
+        chineseScrap: chineseScrap,
+        middleScrap: middleScrap,
+        bigScrapMachine: bigScrapMachine
+    };
+    localStorage.setItem("gameSave", JSON.stringify(gameSave));
+}
+
+
+
+window.onload = function(){
+    loadGame();
+    updateScorePerSecond();
+    document.getElementById("scraps").innerHTML = scraps;
+    document.getElementById("chineseCrusherCost").innerHTML = chineseScrapCost;
+    document.getElementById("chineseCrusher").innerHTML = chineseScrap;
+    document.getElementById("middleScrapCost").innerHTML = middleScrapCost;
+    document.getElementById("middleCrusher").innerHTML = middleScrap;
+    document.getElementById("BigMachineCost").innerHTML = bigScrapMachineCost;
+    document.getElementById("BigCrusher").innerHTML = bigScrapMachine;
+};
 
 setInterval(function(){
     scraps = scraps + chineseScrap;
@@ -72,6 +111,18 @@ setInterval(function(){
     document.title = scraps + " Scraps -- Mash It!!"
 }, 1000);
 
+setInterval(function(){
+    saveGame();
+}, 30000);
+
+document.addEventListener("keydown", function(event) {
+    if (event.ctrlKey && event.which == 83) { // CTRL + S
+        event.preventDefault();
+        saveGame();
+    }
+}, false);
+
+// Dark-Mode theme
 switchThemeBtn.addEventListener('click', () => {
     if (toggleTheme === 0) {
         document.documentElement.style.setProperty('--ecriture', '#f1f1f1');
