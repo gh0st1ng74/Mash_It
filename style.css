@@ -76,11 +76,10 @@ body{
 
 .unselectable{
     user-select: none;
-    
 }
 
 .sectionFooter{
-    margin-top: 40%;
+    margin-top: 36%;
     color: var(--ecriture);
 }
 
