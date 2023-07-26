@@ -17,7 +17,7 @@
             <br>
             
             <div class="clickercontainer unselectable">
-                <img id="scrapsimg" src="Images/Décharge.png" width="" height="180" onclick="addSracps(clickingPower)">
+                <img id="scrapsimg" src="Images/Décharge.png" width="" height="180" onclick="game.addToScraps(game.clickValue)">
             </div>
         </center>   
         
@@ -30,7 +30,7 @@
 
 
 
-    <div class="sectionRight">
+    <div class="sectionRight" id="shopContainer">
         <table class="shopbtn unselectable" onclick="buyChineseMachine()">
             <tr>
                 <td id="image"><img src="Images/ChineseCrusher.png"></td>
@@ -55,7 +55,7 @@
 
         <table class="shopbtn unselectable" onclick="buyBigMachine()">
             <tr>
-                <td id="image"><img src="Images/Crusher.png"></td>
+                <td id="image"><img src="Images/BigCrusher.png"></td>
                 <td id="nameAndCost">
                     <p>Big Scrap Crusher</p>
                     <p><span id="BigMachineCost">250</span> Scraps</p>
