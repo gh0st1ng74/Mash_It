@@ -64,7 +64,7 @@ var display = {
     updateScraps: function(){
         document.getElementById("scraps").innerHTML = game.scraps;
         document.getElementById("scrapspersecond").innerHTML = game.getSrapsPerSecond();
-        document.title = game.scraps + " Scraps -- Mash It";
+        document.title = game.scraps + " Scraps -- Mash It !!";
     },
 
     updateShop: function(){
