@@ -1,143 +1,74 @@
-// Variables
-var scraps = 0;
-var chineseScrapCost = 15;
-var middleScrapCost = 100;
-var bigScrapMachineCost = 250;
-var chineseScrap = 0;
-var middleScrap = 0;
-var bigScrapMachine = 0;
+var game = {
+    scraps: 0,
+    totalScraps: 0,
+    totalClicks: 0,
+    clickValue: 1,
+    version: 0.001,
 
-var clickingPower = 1;
-const switchThemeBtn = document.querySelector('.changetheme')
-let toggleTheme = 0;
+    addToScraps: function(amount)
+    {
+        this.scraps += amount;
+        this.totalScraps += amount;
+        display.updateScraps();
+    },
 
-// Buy Buttons
-function addSracps(amount){
-    scraps = scraps + amount;
-    document.getElementById("scraps").innerHTML = scraps;
-}
-
-function buyChineseMachine(){
-    if (scraps >= chineseScrapCost) {
-        scraps = scraps - chineseScrapCost;
-        chineseScrap = chineseScrap + 1;
-        chineseScrapCost = Math.round(chineseScrapCost * 1.15);
-
-        document.getElementById("scraps").innerHTML = scraps;
-        document.getElementById("chineseCrusherCost").innerHTML = chineseScrapCost;
-        document.getElementById("chineseCrusher").innerHTML = chineseScrap;
-        updateScorePerSecond();
+    getSrapsPerSecond: function(){
+        var scrapsPerSecond = 0;
+        for(i = 0; i < building.name.length; i++){
+            scrapsPerSecond += building.income[i] * building.count[i];
+        }
+        return scrapsPerSecond;
     }
-}
+};
 
-function buyMiddleMachine(){
-    if (scraps >= middleScrapCost) {
-        scraps = scraps - middleScrapCost;
-        middleScrap = middleScrap + 1;
-        middleScrapCost = Math.round(middleScrapCost * 1.20);
+var building = {
+    name: ["ChineseMachine", "MiddleMachine", "BigMachine"], // Le nom de toute tes machines
+    image: ["ChineseCrusher.png", "Crusher.png", "BigCrusher.png"], // Leur image
+    count: [0, 0, 0],
+    income: [1, 5, 20], // Combien elle font gagner en une seconde
+    cost: [30, 150, 300], // Leur prix
 
-        document.getElementById("scraps").innerHTML = scraps;
-        document.getElementById("middleScrapCost").innerHTML = middleScrapCost;
-        document.getElementById("middleCrusher").innerHTML = middleScrap;
-        updateScorePerSecond();
+    purchase: function(index){
+        if(game.scraps >= this.cost[index]){
+            game.scraps -= this.cost[index];
+            this.count[index] ++;
+            this.cost[index] = Math.ceil(this.cost[index] * 1.10);
+            display.updateScraps();
+            display.updateShop();
+        }
     }
-}
+};
 
-function buyBigMachine(){
-    if (scraps >= bigScrapMachineCost) {
-        scraps = scraps - bigScrapMachineCost;
-        bigScrapMachine = bigScrapMachine + 1;
-        bigScrapMachineCost = Math.round(bigScrapMachineCost * 1.30);
+var display = {
+    updateScraps: function(){
+        document.getElementById("scraps").innerHTML = game.scraps;
+        document.getElementById("scrapspersecond").innerHTML = game.getSrapsPerSecond();
+        document.title = game.scraps + " Scraps -- Mash It";
+    },
 
-        document.getElementById("scraps").innerHTML = scraps;
-        document.getElementById("BigMachineCost").innerHTML = bigScrapMachineCost;
-        document.getElementById("BigCrusher").innerHTML = bigScrapMachine;
-        updateScorePerSecond();
+    updateShop: function(){
+        document.getElementById("shopContainer").innerHTML = "";
+        for(i = 0; i < building.name.length; i++){
+            document.getElementById("shopContainer").innerHTML += '<table class="shopbtn unselectable" onclick="building.purchase('+i+')"><tr><td id="image"><img src="Images/'+building.image[i]+'"></td><td id="nameAndCost"><p>'+building.name[i]+'</p><p><span>'+building.cost[i]+'</span> Scraps</p></td><td id="amount"><span>'+building.count[i]+'</span></td></tr></table>'
+        }
     }
-}
-// End Of Buy Button
+};
 
-function updateScorePerSecond(){
-    scrapspersecond = chineseScrap + middleScrap * 5 + bigScrapMachine * 15;
-    document.getElementById("scrapspersecond").innerHTML = scrapspersecond;
-}
-
-function loadGame(){// mettre chaque objet ou amélioration que l'on souhaite charger
-    var savedGame = JSON.parse(localStorage.getItem("gameSave"));
-    if (typeof savedGame.scraps !== "undefined") scraps = savedGame.scraps;
-    if (typeof savedGame.clickingPower !== "undefined") clickingPower = savedGame.clickingPower;
-    if (typeof savedGame.chineseScrapCost !== "undefined") chineseScrapCost = savedGame.chineseScrapCost;
-    if (typeof savedGame.middleScrapCost !== "undefined") middleScrapCost = savedGame.middleScrapCost;
-    if (typeof savedGame.bigScrapMachineCost !== "undefined") bigScrapMachineCost = savedGame.bigScrapMachineCost;
-    if (typeof savedGame.chineseScrap !== "undefined") chineseScrap = savedGame.chineseScrap;
-    if (typeof savedGame.middleScrap !== "undefined") middleScrap = savedGame.middleScrap;
-    if (typeof savedGame.bigScrapMachine !== "undefined") bigScrapMachine = savedGame.bigScrapMachine;
-}
-       
-function saveGame(){  // mettre chaque objet ou amélioration que l'on souhaite sauvegarder
+function saveGame(){
     var gameSave = {
-        scraps: scraps,
-        clickingPower: clickingPower,
-        chineseScrapCost: chineseScrapCost,
-        middleScrapCost: middleScrapCost,
-        bigScrapMachineCost: bigScrapMachineCost,
-        chineseScrap: chineseScrap,
-        middleScrap: middleScrap,
-        bigScrapMachine: bigScrapMachine
+        scraps: game.scraps,
+        totalScraps: game.totalScraps,
+        totalClicks: game.totalClicks,
+        clickValue: game.clickValue,
+        version: game.version,
+        buildingCount: building.count,
+        buildingIncome: building.income,
+        buildingCost: building.cost
     };
     localStorage.setItem("gameSave", JSON.stringify(gameSave));
 }
 
-function resetGame(){
-    if (confirm("Are you sure you want to reset your game ?")) {
-        var gameSave = {};
-        localStorage.setItem("gameSave", JSON.stringify(gameSave));
-        location.reload();
-    }
-}
-
 window.onload = function(){
-    loadGame();
-    updateScorePerSecond();
-    document.getElementById("scraps").innerHTML = scraps;
-    document.getElementById("chineseCrusherCost").innerHTML = chineseScrapCost;
-    document.getElementById("chineseCrusher").innerHTML = chineseScrap;
-    document.getElementById("middleScrapCost").innerHTML = middleScrapCost;
-    document.getElementById("middleCrusher").innerHTML = middleScrap;
-    document.getElementById("BigMachineCost").innerHTML = bigScrapMachineCost;
-    document.getElementById("BigCrusher").innerHTML = bigScrapMachine;
-};
-
-setInterval(function(){
-    scraps = scraps + chineseScrap;
-    scraps = scraps + middleScrap * 5; // *5 ca veut dire 5 fois par secondes // Dois etre le meme nombre que celui de la ligne 58
-    scraps = scraps + bigScrapMachine * 15; // Dois etre le meme nombre que celui de la ligne 58
-    document.getElementById("scraps").innerHTML = scraps;
-
-    document.title = scraps + " Scraps -- Mash It!!"
-}, 1000);
-
-setInterval(function(){
-    saveGame();
-}, 30000);
-
-document.addEventListener("keydown", function(event) {
-    if (event.ctrlKey && event.which == 83) { // CTRL + S
-        event.preventDefault();
-        saveGame();
-    }
-}, false);
-
-// Dark-Mode theme
-switchThemeBtn.addEventListener('click', () => {
-    if (toggleTheme === 0) {
-        document.documentElement.style.setProperty('--ecriture', '#f1f1f1');
-        document.documentElement.style.setProperty('--background', '#262626');
-        toggleTheme ++;
-    }
-    else{
-        document.documentElement.style.setProperty('--ecriture', '#262626');
-        document.documentElement.style.setProperty('--background', '#ffffff');
-        toggleTheme--;
-    }
-})
+    display.updateScraps();
+    display.updateShop();
+}
