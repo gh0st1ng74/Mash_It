@@ -1,3 +1,22 @@
+// Dark mode
+const switchThemeButton = document.querySelector('.changeTheme')
+let toggleTheme = 0;
+
+switchThemeButton.addEventListener('click', () => {
+    if (toggleTheme === 0) {
+        document.documentElement.style.setProperty('--ecriture', '#262626')
+        document.documentElement.style.setProperty('--background', '#ffffff')
+        document.documentElement.style.setProperty('--backgroundFonce', '#f2f2f2')
+        toggleTheme ++;
+    }
+    else{
+        document.documentElement.style.setProperty('--ecriture', '#ffffff')
+        document.documentElement.style.setProperty('--background', '#262626')
+        document.documentElement.style.setProperty('--backgroundFonce', '#212121')
+        toggleTheme --;
+    }
+});
+
 var game = {
     scraps: 0,
     totalScraps: 0,
