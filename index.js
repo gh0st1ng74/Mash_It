@@ -21,8 +21,10 @@ var game = {
     }
 };
 
+
+// Ajout des différents batiments
 var building = {
-    name: ["ChineseMachine", "MiddleMachine", "BigMachine"], // Le nom de toute tes machines
+    name: ["Chinese Machine", "Middle Machine", "Big Machine"], // Le nom de toute tes machines
     image: ["ChineseCrusher.png", "Crusher.png", "BigCrusher.png"], // Leur image
     count: [0, 0, 0],
     income: [1, 5, 20], // Combien elle font gagner en une seconde
@@ -102,6 +104,24 @@ function resetGame(){
 }
 
 window.onload = function(){
+    loadGame();
     display.updateScraps();
     display.updateShop();
 }
+
+setInterval(function() {
+    game.scraps += game.getSrapsPerSecond();
+    game.totalScraps += game.getSrapsPerSecond();
+    display.updateScraps();
+}, 1000)
+
+setInterval(function(){
+    saveGame();
+}, 30000);
+
+document.addEventListener("keydown", function(event) {
+    if (event.ctrlKey && event.which == 83) { // CTRL + S
+        event.preventDefault();
+        saveGame();
+    }
+}, false);
