@@ -88,7 +88,13 @@ function saveGame(){  // mettre chaque objet ou amélioration que l'on souhaite 
     localStorage.setItem("gameSave", JSON.stringify(gameSave));
 }
 
-
+function resetGame(){
+    if (confirm("Are you sure you want to reset your game ?")) {
+        var gameSave = {};
+        localStorage.setItem("gameSave", JSON.stringify(gameSave));
+        location.reload();
+    }
+}
 
 window.onload = function(){
     loadGame();
