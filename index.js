@@ -68,6 +68,39 @@ function saveGame(){
     localStorage.setItem("gameSave", JSON.stringify(gameSave));
 }
 
+function loadGame(){
+    var savedGame = JSON.parse(localStorage.getItem("gameSave"));
+    if (localStorage.getItem("gameSave") !== null) {
+        if (typeof savedGame.scraps !== "undefined") game.scraps = savedGame.scraps;
+        if (typeof savedGame.totalScraps !== "undefined") game.totalScraps = savedGame.totalScraps;
+        if (typeof savedGame.totalClicks !== "undefined") game.totalClicks = savedGame.totalClicks;
+        if (typeof savedGame.clickValue !== "undefined") game.clickValue = savedGame.clickValue;
+        if (typeof savedGame.buildingCount !== "undefined"){
+            for(i = 0; i < savedGame.buildingCount.length; i++){
+                building.count[i] = savedGame.buildingCount[i];
+            }
+        }
+        if (typeof savedGame.buildingCost !== "undefined"){
+            for(i = 0; i < savedGame.buildingCost.length; i++){
+                building.cost[i] = savedGame.buildingCost[i];
+            }
+        }
+        if (typeof savedGame.buildingIncome !== "undefined"){
+            for(i = 0; i < savedGame.buildingIncome.length; i++){
+                building.income[i] = savedGame.buildingIncome[i];
+            }
+        }
+    }
+}
+
+function resetGame(){
+    if (confirm("Are you sure you want to reset your game ?")) {
+        var gameSave = {};
+        localStorage.setItem("gameSave", JSON.stringify(gameSave));
+        location.reload();
+    }
+}
+
 window.onload = function(){
     display.updateScraps();
     display.updateShop();
