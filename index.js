@@ -1,6 +1,6 @@
 // Dark mode
 const switchThemeButton = document.querySelector('.changeTheme')
-let toggleTheme = 1;
+let toggleTheme = 0;
 
 switchThemeButton.addEventListener('click', () => {
     if (toggleTheme === 1) {
@@ -13,7 +13,7 @@ switchThemeButton.addEventListener('click', () => {
         document.documentElement.style.setProperty('--ecriture', '#ffffff')
         document.documentElement.style.setProperty('--background', '#262626')
         document.documentElement.style.setProperty('--backgroundFonce', '#212121')
-        toggleTheme --;
+        toggleTheme ++;
     }
 });
 
