@@ -1,6 +1,6 @@
 // Dark mode
 const switchThemeButton = document.querySelector('.changeTheme')
-let toggleTheme = 0;
+let toggleTheme = 1;
 
 switchThemeButton.addEventListener('click', () => {
     if (toggleTheme === 0) {
