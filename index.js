@@ -56,6 +56,39 @@ var building = {
             this.cost[index] = Math.ceil(this.cost[index] * 1.10);
             display.updateScraps();
             display.updateShop();
+            display.updateUpgrades();
+        }
+    }
+};
+
+var upgrade = {
+    name: ["Good Chinese"],
+    description: ["The Chinese Machine work X2"],
+    image: ["chinois.jfif"],
+    type: ["building"],
+    cost: [150],
+    buildingIndex: [0],
+    requirement: [1],
+    bonus: [2],
+    purchased: [false],
+
+    purchase: function(index) {
+        if (!this.purchased[index] && game.scraps >= this.cost[index]) {
+            if(this.type[index] == "building" && building.count[this.buildingIndex[index]] >= this.requirement[index]){
+                game.scraps -= this.cost[index];
+                building.income[this.buildingIndex[index]] *= this.bonus[index];
+                this.purchased[index] = true;
+
+                display.updateUpgrades();
+                display.updateScraps();
+            }else if(this.type[index] == "click" && game.totalClicks >= this.requirement[index]) {
+                game.scraps -= this.cost[index];
+                game.clickValue *= this.bonus[index];
+                this.purchased[index] = true;
+
+                display.updateUpgrades();
+                display.updateScraps();
+            }
         }
     }
 };
@@ -71,6 +104,19 @@ var display = {
         document.getElementById("shopContainer").innerHTML = "";
         for(i = 0; i < building.name.length; i++){
             document.getElementById("shopContainer").innerHTML += '<table class="shopbtn unselectable" onclick="building.purchase('+i+')"><tr><td id="image"><img src="Images/'+building.image[i]+'"></td><td id="nameAndCost"><p>'+building.name[i]+'</p><p><span>'+building.cost[i]+'</span> Scraps</p></td><td id="amount"><span>'+building.count[i]+'</span></td></tr></table>'
+        }
+    },
+
+    updateUpgrades: function(){
+        document.getElementById("upgradeContainer").innerHTML = "";
+        for(i = 0; i < upgrade.name.length; i++) {
+            if(!upgrade.purchased[i]) {
+                if(upgrade.type[i] == "building" && building.count[upgrade.buildingIndex[i]] >= upgrade.requirement[i]) {
+                    document.getElementById("upgradeContainer").innerHTML += '<img src="Images/'+upgrade.image[i]+'" title="'+upgrade.name[i]+' &#10; '+upgrade.description[i]+' &#10; ('+upgrade.cost[i]+' Scraps)" onclick="upgrade.purchase('+i+')")';
+                }else if(upgrade.type[i] == "click" && game.totalClicks >= upgrade.requirement[i]) {
+                    document.getElementById("upgradeContainer").innerHTML += '<img src="Images/'+upgrade.image[i]+'" title="'+upgrade.name[i]+' &#10; '+upgrade.description[i]+' &#10; ('+upgrade.cost[i]+' Scraps)" onclick="upgrade.purchase('+i+')")';
+                }
+            }
         }
     }
 };
@@ -122,11 +168,22 @@ function resetGame(){
     }
 }
 
+document.getElementById("clicker").addEventListener("click", function(){
+    game.totalClicks++;
+    game.addToScraps(game.clickValue);
+}, false);
+
 window.onload = function(){
     loadGame();
     display.updateScraps();
+    display.updateUpgrades();
     display.updateShop();
 }
+
+setInterval(function(){
+    display.updateScraps();
+    display.updateUpgrades();
+}, 10000)
 
 setInterval(function() {
     game.scraps += game.getSrapsPerSecond();
