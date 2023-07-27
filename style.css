@@ -111,3 +111,8 @@ body{
     font-size: 20px;
     border-radius: 20px;
 }
+
+#upgradeContainer img{
+    height: 64px;
+    width: 64px;
+}
