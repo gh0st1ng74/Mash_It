@@ -100,7 +100,7 @@ body{
 }
 
 .sectionFooter{
-    margin-top: 30%;
+    margin-top: auto;
     color: var(--ecriture);
 }
 
@@ -133,31 +133,34 @@ body{
     }
 }
 
-/* Styles pour le menu */
-#menu {
+.menuBackground {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: none;
+}
+  
+.menu {
     position: absolute;
     top: 50%;
-    left: 40.2%;
+    left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #f2f2f2;
-    border: 1px solid #ccc;
-    padding: 20px;
-    text-align: center; /* Pour centrer les boutons horizontalement */
-    z-index: 9999; /* Pour s'assurer que le menu est placé au-dessus des autres éléments */
+    width: 200px;
+    height: 200px;
+    background-color: #f1f1f1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 10px solid #ccc; /* Ajoute une bordure de 10px autour du carré */
 }
   
-  /* Styles pour les boutons du menu */
-  .menu-button {
-    display: block;
-    width: 300px; /* Largeur souhaitée des boutons */
-    height: 75px; /* Hauteur souhaitée des boutons */
-    margin: 10px auto; /* Marge pour espacer les boutons verticalement */
-    font-size: 18px; /* Taille de police souhaitée pour les boutons */
+.menu button {
+    margin: 10px;
+    padding: 20px; /* Ajuste la taille du padding pour agrandir les boutons */
+    font-size: 18px; /* Ajuste la taille de la police pour les boutons */
 }
   
-  /* Style pour le bouton "Afficher le menu" */
-  #afficherMenu {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-}
