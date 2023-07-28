@@ -206,15 +206,17 @@ document.addEventListener("keydown", function (event) {
     }
 }, false);
 
-const boutonAfficherMenu = document.getElementById('afficherMenu');
-const menu = document.getElementById('menu');
-
-boutonAfficherMenu.addEventListener('click', function() {
-  const estAffiche = menu.style.display === 'block';
-
-  if (estAffiche) {
-    menu.style.display = 'none';
-  } else {
-    menu.style.display = 'block';
+function openMenu() {
+    const menuBackground = document.getElementById('menuBackground');
+    menuBackground.style.display = 'block';
   }
-});
+  
+  function closeMenu() {
+    const menuBackground = document.getElementById('menuBackground');
+    menuBackground.style.display = 'none';
+  }
+  
+  function resetGame() {
+    // Votre fonction resetGame() existante si nécessaire
+  }
+  
