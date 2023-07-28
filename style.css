@@ -26,6 +26,8 @@ body{
 .sectionLeft{
     float: left;
     width: 80%;
+    align-items: center;
+    text-align: center;
 }
 
 .sectionRight{
@@ -35,12 +37,14 @@ body{
 
 .scrapscontainer{
     background-color: var(--backgroundFonce);
+    margin: auto;
     color: var(--ecriture);
-    width: 50%;
     padding: 10px;
     border-radius: 10px;
     font-size: 30px;
     font-weight: bold;
+    min-width: 20%;
+    max-width: 40%;
 }
 
 .clickercontainer img{
@@ -127,4 +131,33 @@ body{
         float: none;
         width: 100%;
     }
+}
+
+/* Styles pour le menu */
+#menu {
+    position: absolute;
+    top: 50%;
+    left: 40.2%;
+    transform: translate(-50%, -50%);
+    background-color: #f2f2f2;
+    border: 1px solid #ccc;
+    padding: 20px;
+    text-align: center; /* Pour centrer les boutons horizontalement */
+    z-index: 9999; /* Pour s'assurer que le menu est placé au-dessus des autres éléments */
+}
+  
+  /* Styles pour les boutons du menu */
+  .menu-button {
+    display: block;
+    width: 300px; /* Largeur souhaitée des boutons */
+    height: 75px; /* Hauteur souhaitée des boutons */
+    margin: 10px auto; /* Marge pour espacer les boutons verticalement */
+    font-size: 18px; /* Taille de police souhaitée pour les boutons */
+}
+  
+  /* Style pour le bouton "Afficher le menu" */
+  #afficherMenu {
+    position: absolute;
+    top: 10px;
+    left: 10px;
 }
