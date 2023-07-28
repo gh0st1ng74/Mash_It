@@ -59,15 +59,15 @@ var building = {
 };
 
 var upgrade = {
-    name: ["Good Chinese"],
-    description: ["The Chinese Machine work X2"],
-    image: ["Employe.png"],
-    type: ["building"],
-    cost: [150],
-    buildingIndex: [0],
-    requirement: [1],
-    bonus: [2],
-    purchased: [false],
+    name: ["Good Chinese", "High Quality Machine", "Rocky Mouse", "Hell Mouse"],
+    description: ["The Chinese Machine work X2", "All Your Middle Machine Work X2.5", "The mouse work x4", "The mouse work x10"],
+    image: ["Employe.png", "Crusher.png", "Mouse.png", "HellMouse.png"],
+    type: ["building", "building", "click", "click"],
+    cost: [150, 1000, 200, 550],
+    buildingIndex: [0, 1, -1, -1],
+    requirement: [1, 10, 100, 600],
+    bonus: [2, 2.5, 4, 10],
+    purchased: [false, false, false, false],
 
     purchase: function(index) {
         if (!this.purchased[index] && game.scraps >= this.cost[index]) {
@@ -117,6 +117,7 @@ var display = {
         }
     }
 };
+
 
 function saveGame() {
     var gameSave = {
@@ -192,7 +193,7 @@ setInterval(function(){
 setInterval(function() {
     display.updateScraps();
     display.updateUpgrades();
-}, 10000);
+}, 3000);
 
 setInterval(function () {
     saveGame();
