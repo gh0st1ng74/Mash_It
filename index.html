@@ -7,12 +7,12 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="changeTheme unselectable"><span class="changeTheme">Dark</span></div>
+    <div class="openMenuButton">
+        <button id="openMenuButton" onclick="openMenu()">Settings</button>
+    </div>
 
     <div class="sectionLeft">
-        <div class="openMenuButton">
-            <button onclick="openMenu()">Ouvrir le menu</button>
-        </div>
+        
         
         <div class="scrapscontainer unselectable">
             <span id="scrapsPerSecond">0</span> Scraps Per Second<br>
@@ -28,7 +28,7 @@
     <div class="menuBackground" id="menuBackground">
         <div class="menu">
             <button onclick="closeMenu()">Retour</button>
-            <button>Autre</button>
+            <div class="changeTheme unselectable"><span class="changeTheme">Dark Mode</span></div>
         </div>
     </div>
 
