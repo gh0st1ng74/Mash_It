@@ -9,15 +9,9 @@
 <body>
     <div class="changeTheme unselectable"><span class="changeTheme">Dark</span></div>
 
-    
-    <button id="afficherMenu">Afficher le menu</button>
-
-
     <div class="sectionLeft">
-        <div id="menu" style="display: none;">
-            <button class="menu-button">1</button>
-            <button class="menu-button">Option 2</button>
-            <button class="menu-button">Option 3</button>
+        <div class="openMenuButton">
+            <button onclick="openMenu()">Ouvrir le menu</button>
         </div>
         
         <div class="scrapscontainer unselectable">
@@ -29,6 +23,13 @@
         <div class="clickercontainer unselectable">
             <img id="clicker" src="Images/Décharge.png" width="" height="180">
         </div>   
+    </div>
+
+    <div class="menuBackground" id="menuBackground">
+        <div class="menu">
+            <button onclick="closeMenu()">Retour</button>
+            <button>Autre</button>
+        </div>
     </div>
 
     <div class="sectionRight">
