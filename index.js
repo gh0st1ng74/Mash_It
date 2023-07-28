@@ -219,4 +219,3 @@ function openMenu() {
   function resetGame() {
     // Votre fonction resetGame() existante si nécessaire
   }
-  
