@@ -66,7 +66,7 @@ var upgrade = {
     cost: [150, 1000, 200, 550],
     buildingIndex: [0, 1, -1, -1],
     requirement: [1, 10, 100, 600],
-    bonus: [2, 2, 4, 10],
+    bonus: [2, 2.5, 4, 10],
     purchased: [false, false, false, false],
 
     purchase: function(index) {
@@ -173,8 +173,8 @@ function resetGame() {
     if (confirm("Are you sure you want to reset your game ?")) {
         var gameSave = {};
         localStorage.setItem("gameSave", JSON.stringify(gameSave));
-        location.reload();
         closeMenu();
+        location.reload();
     }
 };
 
@@ -183,6 +183,7 @@ window.onload = function () {
     display.updateScraps();
     display.updateUpgrades();
     display.updateShop();
+    closeMenu();
 };
 
 setInterval(function(){
