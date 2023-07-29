@@ -7,12 +7,12 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="openMenuButton">
-        <button id="openMenuButton" onclick="openMenu()">Settings</button>
-    </div>
+    
 
     <div class="sectionLeft">
-        
+        <div class="openMenuButton">
+            <button onclick="openMenu()">Settings</button>
+        </div>
         
         <div class="scrapscontainer unselectable">
             <span id="scrapsPerSecond">0</span> Scraps Per Second<br>
@@ -23,14 +23,17 @@
         <div class="clickercontainer unselectable">
             <img id="clicker" src="Images/Décharge.png" width="" height="180">
         </div>   
-    </div>
 
-    <div class="menuBackground" id="menuBackground">
-        <div class="menu">
-            <button onclick="closeMenu()">Retour</button>
-            <div class="changeTheme unselectable"><span class="changeTheme">Dark Mode</span></div>
+        <div class="menuBackground" id="menuBackground">
+            <div class="menu">
+                <button onclick="resetGame()">Reset Game</button>
+                <button class="changeTheme">Dark Mode</button>
+                <button class="menuButtonReturn" onclick="closeMenu()">Close</button>
+            </div>
         </div>
     </div>
+
+    
 
     <div class="sectionRight">
         <div id="upgradeContainer"></div>
@@ -38,7 +41,6 @@
     </div>
 
     <div class="sectionFooter">
-        <button onclick="resetGame()">Reset Game</button>
         <h3>Mash It!! by Gh0st1ng</h3>
         <h4>Save With CTRL + S</h4>
     </div>
