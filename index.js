@@ -174,6 +174,7 @@ function resetGame() {
         var gameSave = {};
         localStorage.setItem("gameSave", JSON.stringify(gameSave));
         location.reload();
+        closeMenu();
     }
 };
 
@@ -209,13 +210,9 @@ document.addEventListener("keydown", function (event) {
 function openMenu() {
     const menuBackground = document.getElementById('menuBackground');
     menuBackground.style.display = 'block';
-  }
+}
   
-  function closeMenu() {
+function closeMenu() {
     const menuBackground = document.getElementById('menuBackground');
     menuBackground.style.display = 'none';
-  }
-  
-  function resetGame() {
-    // Votre fonction resetGame() existante si nécessaire
-  }
+}
