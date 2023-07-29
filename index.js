@@ -66,7 +66,7 @@ var upgrade = {
     cost: [150, 1000, 200, 550],
     buildingIndex: [0, 1, -1, -1],
     requirement: [1, 10, 100, 600],
-    bonus: [2, 2.5, 4, 10],
+    bonus: [2, 3, 4, 10],
     purchased: [false, false, false, false],
 
     purchase: function(index) {
