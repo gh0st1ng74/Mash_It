@@ -177,4 +177,7 @@ body{
     padding: 10px; /* Ajuste la taille du padding pour agrandir les boutons */
     font-size: 20px; /* Ajuste la taille de la police pour les boutons */
 }
-  
+
+.openMenuButton {
+    position: absolute;
+}
